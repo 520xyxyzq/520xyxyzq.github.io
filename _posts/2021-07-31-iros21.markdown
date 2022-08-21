@@ -1,0 +1,14 @@
+---
+layout: post
+title:  "Consensus-Informed Optimization Over Mixtures for Ambiguity-Aware Object SLAM"
+date:   2021-07-31 22:21:59 +00:00
+image: /images/cards-exp.gif
+categories: research
+author: "Ziqi Lu"
+authors: "<strong>Ziqi Lu*</strong>, QiangQiang Huang*, Kevin Doherty, John Leonard"
+venue: "IROS"
+arxiv: https://arxiv.org/abs/2107.09265
+video: https://www.youtube.com/watch?v=506VSt0tq4o&ab_channel=MITMarineRoboticsGroup
+---
+
+An object-based SLAM system that is robust to ambiguities in per-frame object pose predictions.
