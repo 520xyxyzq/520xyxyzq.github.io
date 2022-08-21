@@ -7,7 +7,7 @@ categories: research
 author: "Ziqi Lu"
 venue: "IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)"
 authors: "<strong>Ziqi Lu</strong>, Yihao Zhang, Kevin Doherty, Odin Severinsen, Ethan Yang, John Leonard"
-subtitle: "Dynamics based 3D skeletal hand tracking"
+subtitle: "SLAM-supported Self-Training for 6D Object Pose Estimation"
 arxiv: https://arxiv.org/abs/2203.04424
 code: https://github.com/520xyxyzq/slam-super-6d
 ---
