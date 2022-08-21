@@ -11,4 +11,4 @@ arxiv: https://arxiv.org/abs/2203.04424
 code: https://github.com/520xyxyzq/slam-super-6d
 ---
 
-We exploit robust pose graph optimization results to pseudo-label robot-collected RGB images and fine-tune 6D object pose estimators during object-based navigation.
+A robust-pose-graph-optimization-aided self-training method for domain adaptation of 6D object pose estimators.
