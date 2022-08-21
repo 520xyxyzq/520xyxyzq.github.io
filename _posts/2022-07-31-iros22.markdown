@@ -2,7 +2,7 @@
 layout: post
 title:  "SLAM-supported Self-Training for 6D Object Pose Estimation"
 date:   2022-07-31 22:21:59 +00:00
-image: /images/YCB-v-test.gif
+image: /images/ziqilu.jpg
 categories: research
 author: "Ziqi Lu"
 authors: "<strong>Ziqi Lu</strong>, Yihao Zhang, Kevin Doherty, Odin Severinsen, Ethan Yang, John Leonard"
