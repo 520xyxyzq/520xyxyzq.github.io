@@ -12,6 +12,6 @@ code: https://github.com/MarineRoboticsGroup/dcsam
 video: https://www.youtube.com/watch?v=lu2e-ENmgqc&t=13130s
 ---
 
-<p><span style="color:red">Selected for spotlight session (top 2 of 48) </span> in the ICRA 2022 workshop on <a href="https://sites.google.com/view/ropm">Robotic Perception and Mapping: Emerging Techniques</a>.</p>
+<p><span style="color:red">Selected for the spotlight session (top 2 of 48) </span> in the ICRA 2022 workshop on <a href="https://sites.google.com/view/ropm">Robotic Perception and Mapping: Emerging Techniques</a>.</p>
 <p>A novel solver to efficiently recover approximate solutions for discrete-continuous (hybrid) factor graph optimization problems in robotic applications.</p>
 
