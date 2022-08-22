@@ -1,0 +1,15 @@
+---
+layout: post
+title:  "Discrete-Continuous Smoothing and Mapping"
+date:   2022-05-23 22:21:59 +00:00
+image: /images/dcsam.png
+categories: research
+author: "Ziqi Lu"
+authors: "Kevin Doherty, <strong>Ziqi Lu</strong>, Kurran Singh, John Leonard"
+venue: "arXiv preprint"
+arxiv: https://arxiv.org/abs/2204.11936
+code: https://github.com/MarineRoboticsGroup/dcsam
+video: https://www.youtube.com/watch?v=lu2e-ENmgqc&t=13130s
+---
+
+A novel solver to efficiently recover approximate solutions to discrete-continuous (hybrid) factor graph optimization problems in robotic applications.
