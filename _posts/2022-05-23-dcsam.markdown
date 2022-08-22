@@ -12,4 +12,5 @@ code: https://github.com/MarineRoboticsGroup/dcsam
 video: https://www.youtube.com/watch?v=lu2e-ENmgqc&t=13130s
 ---
 
-A novel solver to efficiently recover approximate solutions to discrete-continuous (hybrid) factor graph optimization problems in robotic applications.
+A novel solver to efficiently recover approximate solutions for discrete-continuous (hybrid) factor graph optimization problems in robotic applications.
+<span style="color:red">Selected for spotlight session in the ICRA 2022 workshop on <a href="https://sites.google.com/view/ropm">Robotic Perception and Mapping: Emerging Techniques</a> </span>
