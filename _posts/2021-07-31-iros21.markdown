@@ -12,4 +12,4 @@ arxiv: https://arxiv.org/abs/2107.09265
 video: https://www.youtube.com/watch?v=506VSt0tq4o&ab_channel=MITMarineRoboticsGroup
 ---
 
-A robust object-based SLAM system that is aware of pose ambiguity in 6D object pose estimation.
+A robust object-based SLAM system that is aware of pose ambiguity (induced by symmetry, occlusion, etc.) in 6D object pose estimation.
