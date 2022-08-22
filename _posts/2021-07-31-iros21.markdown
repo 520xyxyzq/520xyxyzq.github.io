@@ -7,6 +7,7 @@ categories: research
 author: "Ziqi Lu"
 authors: "<strong>Ziqi Lu*</strong>, QiangQiang Huang*, Kevin Doherty, John Leonard"
 venue: "IROS"
+paper: https://ieeexplore.ieee.org/document/9636213
 arxiv: https://arxiv.org/abs/2107.09265
 video: https://www.youtube.com/watch?v=506VSt0tq4o&ab_channel=MITMarineRoboticsGroup
 ---
