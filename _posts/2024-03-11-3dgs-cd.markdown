@@ -1,0 +1,13 @@
+---
+layout: post
+title:  "3D Gaussian Splatting-based Change Detection for Physical Object Rearrangement"
+date:   2024-11-06 22:21:59 +00:00
+image: /images/3dgs-cd.png
+categories: research
+author: "Ziqi Lu"
+authors: "<strong>Ziqi Lu</strong>, Jianbo Ye, John Leonard"
+venue: "ArXiv"
+arxiv: https://arxiv.org/abs/2411.03706
+---
+
+Fast sparse-view guided NeRF update to physical object reconfigurations.
