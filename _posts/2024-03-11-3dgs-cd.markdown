@@ -9,7 +9,7 @@ authors: "<strong>Ziqi Lu</strong>, Jianbo Ye, John Leonard"
 venue: "ArXiv"
 arxiv: https://arxiv.org/abs/2411.03706
 code: https://github.com/520xyxyzq/3DGS-CD
-Twitter: https://x.com/520xyxyzq/status/1855484131817173481
+# Twitter: https://x.com/520xyxyzq/status/1855484131817173481
 ---
 
-Fast sparse-view guided NeRF update to physical object reconfigurations.
+We estimate 3D object-level changes in 3DGS-represented scenes using sparse post-change images, within tens of seconds.
