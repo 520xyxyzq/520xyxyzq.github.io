@@ -6,7 +6,7 @@ image: /images/dcsam.png
 categories: research
 author: "Ziqi Lu"
 authors: "Kevin Doherty, <strong>Ziqi Lu</strong>, Kurran Singh, John Leonard"
-venue: "arXiv preprint"
+venue: "RA-L"
 arxiv: https://arxiv.org/abs/2204.11936
 code: https://github.com/MarineRoboticsGroup/dcsam
 video: https://www.youtube.com/watch?v=lu2e-ENmgqc&t=13130s
