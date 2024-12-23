@@ -1,0 +1,15 @@
+---
+layout: post
+title:  "LoRA3D: Low-Rank Self-Calibration of 3D Geometric Foundation Models"
+date:   2024-03-18 22:21:59 +00:00
+image: /images/lora3d.png
+categories: research
+author: "Ziqi Lu"
+authors: "<strong>Ziqi Lu</strong>, Heng Yang, Danfei Xu, Boyi Li, Boris Ivanovic, Marco Pavone, Yue Wang
+"
+venue: "ArXiv"
+website: https://520xyxyzq.github.io/lora3d/
+arxiv: https://arxiv.org/abs/2412.07746
+---
+
+Self-specialization of 3D geometric foundation models (e.g. DUSt3R) to a target scene on with sparse calibration images on a single GPU in under 5 min.
