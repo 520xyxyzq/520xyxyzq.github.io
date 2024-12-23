@@ -11,4 +11,4 @@ website: https://520xyxyzq.github.io/nerfupdate/
 arxiv: https://arxiv.org/abs/2403.11024
 ---
 
-Fast sparse-view guided NeRF update to physical object reconfigurations.
+**Update NeRFs** under sparse view guidance to physical object reconfigurations.
