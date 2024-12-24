@@ -217,7 +217,7 @@
             automatically re-weighting the confidence to better reflect point estimation accuracy.
             We use the calibrated confidence to generate high-quality pseudo labels for the calibrating views and use low-rank adaptation (LoRA) to fine-tune the models on the pseudo-labeled data.
             Our method does not require any external priors or manual labels.
-            It completes the self-calibration process </strong>on a single standard GPU within just 5 minutes</strong>.
+            It completes the self-calibration process <strong>on a single standard GPU within just 5 minutes</strong>.
             Each low-rank adapter requires only 18MB of storage. We evaluated our method on more than 160 scenes from the Replica, TUM and Waymo Open datasets,
             achieving up to 88% performance improvement on 3D reconstruction, multi-view pose estimation and novel-view rendering.
           </p>
@@ -236,12 +236,14 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{lu2024lora3d,
+    <pre><code>
+    @article{lu2024lora3d,
       title={LoRA3D: Low-Rank Self-Calibration of 3D Geometric Foundation Models},
       author={Lu, Ziqi and Yang, Heng and Xu, Danfei and Li, Boyi and Ivanovic, Boris and Pavone, Marco and Wang, Yue},
       journal={arXiv preprint arXiv:2412.07746},
       year={2024}
-    }</code></pre>
+    }
+    </code></pre>
   </div>
 </section>
 
