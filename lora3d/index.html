@@ -113,12 +113,12 @@
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>NVIDIA Research</span>
-            <span class="author-block"><sup>2</sup>MIT</span>
-            <span class="author-block"><sup>3</sup>Harvard University</span>
-            <span class="author-block"><sup>4</sup>Georgia Tech</span>
-            <span class="author-block"><sup>5</sup>Stanford University</span>
-            <span class="author-block"><sup>6</sup>University of California, Berkeley</span>
+            <span class="author-block"><sup>1</sup>NVIDIA Research</span>,
+            <span class="author-block"><sup>2</sup>Massachusetts Institute of Technology</span>,
+            <span class="author-block"><sup>3</sup>Harvard University</span>,
+            <span class="author-block"><sup>4</sup>Georgia Institute of Technology</span>,
+            <span class="author-block"><sup>5</sup>Stanford University</span>,
+            <span class="author-block"><sup>6</sup>University of California, Berkeley</span>,
             <span class="author-block"><sup>7</sup>University of Southern California</span>
           </div>
           <div class="column has-text-centered">
@@ -189,6 +189,18 @@
 
 <section class="section">
   <div class="container is-max-desktop">
+    <!-- Figure Section -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <figure>
+          <img id="teaser" width="100%" src="../images/lora3d.png" alt="Teaser image showing the results of the Lora3d method.">
+          <figcaption style="text-align: justify;">
+            Figure 1: Given sparse RGB images, our self-calibration pipeline efficiently specializes a pre-trained
+            3D foundation model to a target scene to improve its performance for a variety of 3D vision tasks.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
     <!-- Abstract Section -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
@@ -198,7 +210,8 @@
             Emerging 3D geometric foundation models, such as DUSt3R, offer a promising approach for in-the-wild 3D vision tasks.
             However, due to the high-dimensional nature of the problem space and scarcity of high-quality 3D data,
             these pre-trained models still struggle to generalize to many challenging circumstances, such as limited view overlap or low lighting.
-            To address this, we propose LoRA3D, an efficient self-calibration pipeline to specialize the pre-trained models to target scenes using their own multi-view predictions.
+            To address this, we propose LoRA3D,
+            an efficient self-calibration pipeline to specialize the pre-trained models to target scenes using their own multi-view predictions.
             Taking sparse RGB images as input, we leverage robust optimization techniques to refine multi-view predictions and align them into a global coordinate frame.
             In particular, we incorporate prediction confidence into the geometric optimization process,
             automatically re-weighting the confidence to better reflect point estimation accuracy.
@@ -212,16 +225,7 @@
       </div>
     </div>
     
-    <!-- Figure Section -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <figure>
-          <img id="teaser" width="100%" src="../images/lora3d.png" alt="Teaser image showing the results of the Lora3d method.">
-          <figcaption style="text-align: justify;">
-          </figcaption>
-        </figure>
-      </div>
-    </div>
+
 
     <!-- Additional sections can be added here following the same structure -->
 
