@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Fast Sparse View Guided NeRF Update for Object Reconfigurations.">
+  <meta name="keywords" content="NeRF, update">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LoRA3D: Low-Rank Self-Calibration of 3D Geometric Foundation Models</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!--
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+-->
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"> <span style="color: #FF5733;">LoRA3D</span>: Low-Rank Self-Calibration of 3D Geometric Foundation Models</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://520xyxyzq.github.io">Ziqi Lu</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://hankyang.seas.harvard.edu/">Heng Yang</a><sup>1,3</sup>,</span>
+            <span class="author-block">
+              <a href="https://faculty.cc.gatech.edu/~danfei/">Danfei Xu</a><sup>1,4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sites.google.com/site/boyilics/home">Boyi Li</a><sup>1,5</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.borisivanovic.com/">Boris Ivanovic</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://profiles.stanford.edu/marco-pavone">Marco Pavone</a><sup>1,6</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://yuewang.xyz/">Yue Wang</a><sup>1,7</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>NVIDIA Research</span>
+            <span class="author-block"><sup>2</sup>MIT</span>
+            <span class="author-block"><sup>3</sup>Harvard University</span>
+            <span class="author-block"><sup>4</sup>Georgia Tech</span>
+            <span class="author-block"><sup>5</sup>Stanford University</span>
+            <span class="author-block"><sup>6</sup>University of California, Berkeley</span>
+            <span class="author-block"><sup>7</sup>University of Southern California</span>
+          </div>
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2412.07746"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              
+              <!-- <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span> -->
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="has-text-centered">
+        <video id="teaser" controls autoplay muted loop playsinline width="60%">
+          <source src="./static/videos/video.mp4"
+                  type="video/mp4">
+        </video>
+      </div> -->
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract Section -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Emerging 3D geometric foundation models, such as DUSt3R, offer a promising approach for in-the-wild 3D vision tasks.
+            However, due to the high-dimensional nature of the problem space and scarcity of high-quality 3D data,
+            these pre-trained models still struggle to generalize to many challenging circumstances, such as limited view overlap or low lighting.
+            To address this, we propose LoRA3D, an efficient self-calibration pipeline to specialize the pre-trained models to target scenes using their own multi-view predictions.
+            Taking sparse RGB images as input, we leverage robust optimization techniques to refine multi-view predictions and align them into a global coordinate frame.
+            In particular, we incorporate prediction confidence into the geometric optimization process,
+            automatically re-weighting the confidence to better reflect point estimation accuracy.
+            We use the calibrated confidence to generate high-quality pseudo labels for the calibrating views and use low-rank adaptation (LoRA) to fine-tune the models on the pseudo-labeled data.
+            Our method does not require any external priors or manual labels.
+            It completes the self-calibration process </strong>on a single standard GPU within just 5 minutes</strong>.
+            Each low-rank adapter requires only 18MB of storage. We evaluated our method on more than 160 scenes from the Replica, TUM and Waymo Open datasets,
+            achieving up to 88% performance improvement on 3D reconstruction, multi-view pose estimation and novel-view rendering.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Figure Section -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <figure>
+          <img id="teaser" width="100%" src="../images/lora3d.png" alt="Teaser image showing the results of the Lora3d method.">
+          <figcaption style="text-align: justify;">
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- Additional sections can be added here following the same structure -->
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{lu2024lora3d,
+      title={LoRA3D: Low-Rank Self-Calibration of 3D Geometric Foundation Models},
+      author={Lu, Ziqi and Yang, Heng and Xu, Danfei and Li, Boyi and Ivanovic, Boris and Pavone, Marco and Wang, Yue},
+      journal={arXiv preprint arXiv:2412.07746},
+      year={2024}
+    }</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <!--<div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>-->
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <div class="content">
+          <p>
+            The website template is borrowed from <a rel="nerfies"href="https://nerfies.github.io/">NeRFies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
