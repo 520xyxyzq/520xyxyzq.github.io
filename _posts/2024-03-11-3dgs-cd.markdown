@@ -6,7 +6,7 @@ image: /images/3dgs-cd.png
 categories: research
 author: "Ziqi Lu"
 authors: "<strong>Ziqi Lu</strong>, Jianbo Ye, John Leonard"
-venue: "ArXiv"
+venue: "RA-L"
 arxiv: https://arxiv.org/abs/2411.03706
 code: https://github.com/520xyxyzq/3DGS-CD
 # Twitter: https://x.com/520xyxyzq/status/1855484131817173481
