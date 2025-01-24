@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "LoRA3D: Low-Rank Self-Calibration of 3D Geometric Foundation Models"
-date:   2024-12-10 22:21:59 +00:00
+date:   2025-01-22 22:21:59 +00:00
 image: /images/lora3d.png
 categories: research
 author: "Ziqi Lu"
