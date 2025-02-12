@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "3DGS-CD: 3D Gaussian Splatting-based Change Detection for Physical Object Rearrangement"
-date:   2024-11-06 22:21:59 +00:00
+date:   2025-01-05 22:21:59 +00:00
 image: /images/3dgs-cd.png
 categories: research
 author: "Ziqi Lu"

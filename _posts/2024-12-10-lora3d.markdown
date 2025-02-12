@@ -7,7 +7,7 @@ categories: research
 author: "Ziqi Lu"
 authors: "<strong>Ziqi Lu</strong>, Heng Yang, Danfei Xu, Boyi Li, Boris Ivanovic, Marco Pavone, Yue Wang
 "
-venue: "ICLR"
+venue: "ICLR (Spotlight)"
 website: https://520xyxyzq.github.io/lora3d/
 arxiv: https://arxiv.org/abs/2412.07746
 ---
