@@ -245,42 +245,54 @@
 <script>
   (function() {
     const container = document.getElementById('ply-viewer');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+    
+    // Create renderer and set a light background color.
     const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setClearColor(0xeeeeee, 1); // Light grey background for contrast.
     renderer.setSize(container.clientWidth, container.clientHeight);
     container.appendChild(renderer.domElement);
-
-    // Add ambient and directional lighting.
+    
+    // Create scene.
+    const scene = new THREE.Scene();
+    
+    // Create camera.
+    const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+    
+    // (Lighting isn’t used for PointsMaterial, but you can add ambient light if desired.)
     const ambientLight = new THREE.AmbientLight(0x404040);
     scene.add(ambientLight);
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(0, 1, 1).normalize();
-    scene.add(directionalLight);
-
+    
     // Load the PLY file representing a point cloud.
     const loader = new THREE.PLYLoader();
     loader.load('before.ply', function (geometry) {
-      // Optional: compute vertex normals if needed (not typically required for point clouds)
-      // geometry.computeVertexNormals();
-
-      // Create a PointsMaterial.
-      const material = new THREE.PointsMaterial({
-        color: 0x0055ff,
-        size: 0.01, // Adjust the point size as needed.
-      });
+      // Set up material options.
+      const materialOptions = { size: 0.05 };  // Increase point size for visibility.
+      // If the PLY file contains vertex colors, use them.
+      if (geometry.attributes.color) {
+        materialOptions.vertexColors = true;
+      } else {
+        // Otherwise, use a bright blue color.
+        materialOptions.color = 0x0055ff;
+      }
+      const material = new THREE.PointsMaterial(materialOptions);
       
       // Create the point cloud.
       const pointCloud = new THREE.Points(geometry, material);
-      scene.add(pointCloud);
-
-      // Center the geometry and adjust the camera position.
+      // Center the geometry.
       geometry.center();
-      camera.position.z = 5;
-
+      scene.add(pointCloud);
+      
+      // Adjust camera position based on the geometry size.
+      geometry.computeBoundingBox();
+      const bbox = geometry.boundingBox;
+      const size = new THREE.Vector3();
+      bbox.getSize(size);
+      const maxDim = Math.max(size.x, size.y, size.z);
+      camera.position.z = maxDim * 2.0;  // Adjust multiplier if needed.
+      
       animate();
     });
-
+    
     // Adjust renderer and camera on window resize.
     window.addEventListener('resize', function() {
       const width = container.clientWidth;
@@ -289,11 +301,11 @@
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
     });
-
+    
     // Animation loop.
     function animate() {
       requestAnimationFrame(animate);
-      // Rotate the point cloud for a dynamic view.
+      // Rotate the point cloud slowly for a dynamic view.
       scene.traverse(function(child) {
         if (child.isPoints) {
           child.rotation.y += 0.005;
