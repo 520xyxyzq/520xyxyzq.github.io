@@ -232,6 +232,78 @@
   </div>
 </section>
 
+<section class="section" id="ply-viewer-section">
+  <div class="container is-max-desktop">
+    <h2 class="title">3D Model Viewer</h2>
+    <!-- The container for the 3D viewer -->
+    <div id="ply-viewer" style="width: 100%; height: 500px; border: 1px solid #ddd;"></div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://threejs.org/examples/js/loaders/PLYLoader.js"></script>
+<script>
+  (function() {
+    const container = document.getElementById('ply-viewer');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    // Add ambient and directional lighting.
+    const ambientLight = new THREE.AmbientLight(0x404040);
+    scene.add(ambientLight);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(0, 1, 1).normalize();
+    scene.add(directionalLight);
+
+    // Load the PLY file representing a point cloud.
+    const loader = new THREE.PLYLoader();
+    loader.load('before.ply', function (geometry) {
+      // Optional: compute vertex normals if needed (not typically required for point clouds)
+      // geometry.computeVertexNormals();
+
+      // Create a PointsMaterial.
+      const material = new THREE.PointsMaterial({
+        color: 0x0055ff,
+        size: 0.01, // Adjust the point size as needed.
+      });
+      
+      // Create the point cloud.
+      const pointCloud = new THREE.Points(geometry, material);
+      scene.add(pointCloud);
+
+      // Center the geometry and adjust the camera position.
+      geometry.center();
+      camera.position.z = 5;
+
+      animate();
+    });
+
+    // Adjust renderer and camera on window resize.
+    window.addEventListener('resize', function() {
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+      renderer.setSize(width, height);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    });
+
+    // Animation loop.
+    function animate() {
+      requestAnimationFrame(animate);
+      // Rotate the point cloud for a dynamic view.
+      scene.traverse(function(child) {
+        if (child.isPoints) {
+          child.rotation.y += 0.005;
+        }
+      });
+      renderer.render(scene, camera);
+    }
+  })();
+</script>
+
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
