@@ -234,7 +234,7 @@
 
 <section class="section" id="ply-viewer-section">
   <div class="columns is-centered has-text-centered">
-    <div class="column is-half">
+    <div class="column is-two-fifths">
       <h2 class="title is-3">Interactive 3D Results</h2>
       <div class="content">
         <div id="point-cloud-container" style="height: 400px; width: 100%; position: relative; border: 1px solid #eee;">
@@ -277,7 +277,7 @@
 
     // Camera setup
     const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.set(0.2, 0, 5);
+    camera.position.set(0, 0, 5);
 
     // Renderer setup
     const renderer = new THREE.WebGLRenderer({ 
@@ -335,6 +335,7 @@
             
             const radius = geometry.boundingSphere.radius;
             camera.position.z = radius * 0.5;  // Reduced camera distance
+            camera.position.x = camera.position.x - 0.2;  // Reduced camera distance
             controls.target.set(0, 0, 0);
             controls.update();
             
