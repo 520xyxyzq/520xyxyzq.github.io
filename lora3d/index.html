@@ -237,7 +237,10 @@
     <div class="column is-four-fifths">
       <h2 class="title is-3">Interactive 3D Results</h2>
       <div class="content">
-        <div id="point-cloud-container" style="height: 400px; width: 100%; position: relative;">
+        <div id="point-cloud-container" style="height: 400px; width: 100%; position: relative; border: 1px solid #eee;">
+          <div id="loading-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100;">
+            Loading point cloud...
+          </div>
           <canvas id="point-cloud-canvas"></canvas>
         </div>
         <p class="has-text-centered">
@@ -248,104 +251,120 @@
   </div>
 
   <!-- Point Cloud Viewer Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.159.0/three.min.js"></script>
-  <script>
-      // Wait for the container to be available
-      document.addEventListener('DOMContentLoaded', function() {
-          const container = document.getElementById('point-cloud-container');
-          const canvas = document.getElementById('point-cloud-canvas');
+  <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.159.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.159.0/examples/jsm/"
+    }
+  }
+  </script>
 
-          // Scene setup
-          const scene = new THREE.Scene();
-          scene.background = new THREE.Color(0xf5f5f5); // Light gray background to match website
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { PLYLoader } from 'three/addons/loaders/PLYLoader.js';
 
-          // Camera setup
-          const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-          camera.position.z = 5;
+    // Wait for the container to be available
+    const container = document.getElementById('point-cloud-container');
+    const loadingText = document.getElementById('loading-text');
+    const canvas = document.getElementById('point-cloud-canvas');
 
-          // Renderer setup
-          const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
-          renderer.setSize(container.clientWidth, container.clientHeight);
+    // Scene setup
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xf5f5f5);
 
-          // Load required scripts
-          function loadScript(url) {
-              return new Promise((resolve, reject) => {
-                  const script = document.createElement('script');
-                  script.src = url;
-                  script.onload = resolve;
-                  script.onerror = reject;
-                  document.head.appendChild(script);
-              });
-          }
+    // Camera setup
+    const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.z = 5;
 
-          // Load OrbitControls and PLYLoader
-          Promise.all([
-              loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/0.159.0/examples/js/controls/OrbitControls.js'),
-              loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/0.159.0/examples/js/loaders/PLYLoader.js')
-          ]).then(() => {
-              // Controls setup
-              const controls = new THREE.OrbitControls(camera, canvas);
-              controls.enableDamping = true;
-              controls.dampingFactor = 0.05;
+    // Renderer setup
+    const renderer = new THREE.WebGLRenderer({ 
+        canvas: canvas, 
+        antialias: true,
+        alpha: true 
+    });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
 
-              // Lighting
-              const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-              scene.add(ambientLight);
-              const pointLight = new THREE.PointLight(0xffffff, 0.8);
-              pointLight.position.set(5, 5, 5);
-              scene.add(pointLight);
+    // Add axes helper for debugging
+    const axesHelper = new THREE.AxesHelper(5);
+    scene.add(axesHelper);
 
-              // PLY loader
-              const loader = new THREE.PLYLoader();
-              loader.load(
-                  'before.ply', // Replace with your PLY file path
-                  function (geometry) {
-                      geometry.computeVertexNormals();
-                      
-                      const material = new THREE.PointsMaterial({
-                          size: 0.02,
-                          vertexColors: true
-                      });
-                      
-                      const points = new THREE.Points(geometry, material);
-                      scene.add(points);
-                      
-                      // Center and scale the model
-                      geometry.computeBoundingSphere();
-                      const center = geometry.boundingSphere.center;
-                      points.position.sub(center);
-                      
-                      const radius = geometry.boundingSphere.radius;
-                      camera.position.z = radius * 2;
-                      controls.update();
-                  },
-                  function (xhr) {
-                      console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-                  },
-                  function (error) {
-                      console.error('Error loading PLY:', error);
-                  }
-              );
+    // Controls setup
+    const controls = new OrbitControls(camera, canvas);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
 
-              // Handle window resize
-              function onWindowResize() {
-                  camera.aspect = container.clientWidth / container.clientHeight;
-                  camera.updateProjectionMatrix();
-                  renderer.setSize(container.clientWidth, container.clientHeight);
-              }
-              window.addEventListener('resize', onWindowResize, false);
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    scene.add(ambientLight);
+    const pointLight = new THREE.PointLight(0xffffff, 0.8);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
 
-              // Animation loop
-              function animate() {
-                  requestAnimationFrame(animate);
-                  controls.update();
-                  renderer.render(scene, camera);
-              }
-              animate();
-          }).catch(error => {
-              console.error('Error loading scripts:', error);
-          });
-      });
+    // PLY loader
+    console.log('Starting PLY load...');
+    const loader = new PLYLoader();
+    loader.load(
+        'static/ply/before.ply',  // Updated path assuming PLY is in static/ply folder
+        function (geometry) {
+            console.log('PLY loaded successfully');
+            console.log('Geometry vertices:', geometry.attributes.position.count);
+            
+            geometry.computeVertexNormals();
+            
+            const material = new THREE.PointsMaterial({
+                size: 0.01,
+                vertexColors: geometry.attributes.color !== undefined
+            });
+            
+            if (geometry.attributes.color === undefined) {
+                material.color = new THREE.Color(0x0088ff);
+            }
+            
+            const points = new THREE.Points(geometry, material);
+            scene.add(points);
+            
+            // Center and scale the model
+            geometry.computeBoundingSphere();
+            const center = geometry.boundingSphere.center;
+            points.position.sub(center);
+            
+            const radius = geometry.boundingSphere.radius;
+            camera.position.z = radius * 2;
+            controls.target.set(0, 0, 0);
+            controls.update();
+            
+            loadingText.style.display = 'none';
+        },
+        function (xhr) {
+            const progress = (xhr.loaded / xhr.total * 100).toFixed(1);
+            loadingText.innerHTML = `Loading: ${progress}%`;
+            console.log(`Loading progress: ${progress}%`);
+        },
+        function (error) {
+            console.error('Error loading PLY:', error);
+            loadingText.innerHTML = 'Error loading point cloud';
+        }
+    );
+
+    // Handle window resize
+    function onWindowResize() {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
+    }
+    window.addEventListener('resize', onWindowResize, false);
+
+    // Animation loop
+    function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+    }
+    animate();
   </script>
 </section>
 
