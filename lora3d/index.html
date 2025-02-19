@@ -288,10 +288,6 @@
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
 
-    // Add axes helper for debugging
-    const axesHelper = new THREE.AxesHelper(5);
-    scene.add(axesHelper);
-
     // Controls setup
     const controls = new OrbitControls(camera, canvas);
     controls.enableDamping = true;
@@ -327,7 +323,7 @@
             const points = new THREE.Points(geometry, material);
             
             // Rotate 90 degrees around X axis
-            points.rotation.x = -Math.PI / 2;  // Negative for clockwise rotation
+            points.rotation.x = -Math.PI;  // Negative for clockwise rotation
             scene.add(points);
             
             // Center and scale the model
