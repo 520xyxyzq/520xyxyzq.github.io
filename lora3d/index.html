@@ -312,7 +312,7 @@
             geometry.computeVertexNormals();
             
             const material = new THREE.PointsMaterial({
-                size: 0.001,  // Increased point size
+                size: 0.0005,  // Increased point size
                 vertexColors: geometry.attributes.color !== undefined
             });
             
@@ -325,6 +325,7 @@
             // Additional rotations
             points.rotation.x = -Math.PI; // -180 degrees around X
             points.rotation.y = Math.PI * 50/180; // -50 degrees around Z
+            points.rotation.z = Math.PI * 30/180; // -90 degrees around Y
             scene.add(points);
             
             // Center and scale the model
