@@ -232,11 +232,122 @@
   </div>
 </section>
 
-<iframe
-width="250" height="250" style="border:1px solid #eeeeee;"
-src="https://3dviewer.net/embed.html#model=https://github.com/520xyxyzq/520xyxyzq.github.io/blob/master/lora3d/before.ply$camera=169.48379,370.18722,427.39485,255.46234,255.54915,255.43774,0.00000,1.00000,0.00000,45.00000$cameramode=perspective$envsettings=fishermans_bastion,off$backgroundcolor=255,255,255,255$defaultcolor=200,200,200$edgesettings=off,0,0,0,1">
-</iframe>
+<section class="section" id="ply-viewer-section">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-four-fifths">
+      <h2 class="title is-3">Interactive 3D Results</h2>
+      <div class="content">
+        <div id="point-cloud-container" style="height: 400px; width: 100%; position: relative;">
+          <canvas id="point-cloud-canvas"></canvas>
+        </div>
+        <p class="has-text-centered">
+          Interactive visualization of our reconstructed point cloud. Use mouse to rotate, scroll to zoom.
+        </p>
+      </div>
+    </div>
+  </div>
 
+  <!-- Point Cloud Viewer Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.159.0/three.min.js"></script>
+  <script>
+      // Wait for the container to be available
+      document.addEventListener('DOMContentLoaded', function() {
+          const container = document.getElementById('point-cloud-container');
+          const canvas = document.getElementById('point-cloud-canvas');
+
+          // Scene setup
+          const scene = new THREE.Scene();
+          scene.background = new THREE.Color(0xf5f5f5); // Light gray background to match website
+
+          // Camera setup
+          const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+          camera.position.z = 5;
+
+          // Renderer setup
+          const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+          renderer.setSize(container.clientWidth, container.clientHeight);
+
+          // Load required scripts
+          function loadScript(url) {
+              return new Promise((resolve, reject) => {
+                  const script = document.createElement('script');
+                  script.src = url;
+                  script.onload = resolve;
+                  script.onerror = reject;
+                  document.head.appendChild(script);
+              });
+          }
+
+          // Load OrbitControls and PLYLoader
+          Promise.all([
+              loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/0.159.0/examples/js/controls/OrbitControls.js'),
+              loadScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/0.159.0/examples/js/loaders/PLYLoader.js')
+          ]).then(() => {
+              // Controls setup
+              const controls = new THREE.OrbitControls(camera, canvas);
+              controls.enableDamping = true;
+              controls.dampingFactor = 0.05;
+
+              // Lighting
+              const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+              scene.add(ambientLight);
+              const pointLight = new THREE.PointLight(0xffffff, 0.8);
+              pointLight.position.set(5, 5, 5);
+              scene.add(pointLight);
+
+              // PLY loader
+              const loader = new THREE.PLYLoader();
+              loader.load(
+                  'before.ply', // Replace with your PLY file path
+                  function (geometry) {
+                      geometry.computeVertexNormals();
+                      
+                      const material = new THREE.PointsMaterial({
+                          size: 0.02,
+                          vertexColors: true
+                      });
+                      
+                      const points = new THREE.Points(geometry, material);
+                      scene.add(points);
+                      
+                      // Center and scale the model
+                      geometry.computeBoundingSphere();
+                      const center = geometry.boundingSphere.center;
+                      points.position.sub(center);
+                      
+                      const radius = geometry.boundingSphere.radius;
+                      camera.position.z = radius * 2;
+                      controls.update();
+                  },
+                  function (xhr) {
+                      console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                  },
+                  function (error) {
+                      console.error('Error loading PLY:', error);
+                  }
+              );
+
+              // Handle window resize
+              function onWindowResize() {
+                  camera.aspect = container.clientWidth / container.clientHeight;
+                  camera.updateProjectionMatrix();
+                  renderer.setSize(container.clientWidth, container.clientHeight);
+              }
+              window.addEventListener('resize', onWindowResize, false);
+
+              // Animation loop
+              function animate() {
+                  requestAnimationFrame(animate);
+                  controls.update();
+                  renderer.render(scene, camera);
+              }
+              animate();
+          }).catch(error => {
+              console.error('Error loading scripts:', error);
+          });
+      });
+  </script>
+</section>
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
