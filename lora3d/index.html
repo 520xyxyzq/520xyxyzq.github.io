@@ -234,7 +234,7 @@
 
 <section class="section" id="ply-viewer-section">
   <div class="columns is-centered has-text-centered">
-    <div class="column is-four-fifths">
+    <div class="column is-half">
       <h2 class="title is-3">Interactive 3D Results</h2>
       <div class="content">
         <div id="point-cloud-container" style="height: 400px; width: 100%; position: relative; border: 1px solid #eee;">
@@ -325,6 +325,9 @@
             }
             
             const points = new THREE.Points(geometry, material);
+            
+            // Rotate 90 degrees around X axis
+            points.rotation.x = -Math.PI / 2;  // Negative for clockwise rotation
             scene.add(points);
             
             // Center and scale the model
