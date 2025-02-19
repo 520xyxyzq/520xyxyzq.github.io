@@ -235,18 +235,33 @@
 <section class="section" id="ply-viewer-section">
   <div class="columns is-centered has-text-centered">
     <div class="column is-one-third">
-      <h2 class="title is-3">Interactive 3D Results</h2>
+      <h2 class="title is-3">Before</h2>
       <div class="content">
-        <div id="point-cloud-container" style="height: 400px; width: 100%; position: relative; border: 1px solid #eee;">
-          <div id="loading-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100;">
+        <div id="point-cloud-container-before" style="height: 400px; width: 100%; position: relative; border: 1px solid #eee;">
+          <div id="loading-text-before" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100;">
             Loading point cloud...
           </div>
-          <canvas id="point-cloud-canvas"></canvas>
+          <canvas id="point-cloud-canvas-before"></canvas>
         </div>
-        <p class="has-text-centered">
-          Interactive visualization of our reconstructed point cloud. Use mouse to rotate, scroll to zoom.
-        </p>
       </div>
+    </div>
+    <div class="column is-one-third">
+      <h2 class="title is-3">After</h2>
+      <div class="content">
+        <div id="point-cloud-container-after" style="height: 400px; width: 100%; position: relative; border: 1px solid #eee;">
+          <div id="loading-text-after" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100;">
+            Loading point cloud...
+          </div>
+          <canvas id="point-cloud-canvas-after"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="columns is-centered">
+    <div class="column is-two-thirds">
+      <p class="has-text-centered">
+        Interactive visualization of our reconstructed point clouds. Use mouse to rotate, scroll to zoom.
+      </p>
     </div>
   </div>
 
@@ -266,108 +281,113 @@
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
     import { PLYLoader } from 'three/addons/loaders/PLYLoader.js';
 
-    // Wait for the container to be available
-    const container = document.getElementById('point-cloud-container');
-    const loadingText = document.getElementById('loading-text');
-    const canvas = document.getElementById('point-cloud-canvas');
+    function createViewer(containerId, loadingTextId, canvasId, plyPath) {
+      const container = document.getElementById(containerId);
+      const loadingText = document.getElementById(loadingTextId);
+      const canvas = document.getElementById(canvasId);
 
-    // Scene setup
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xf5f5f5);
+      // Scene setup
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xf5f5f5);
 
-    // Camera setup
-    const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.set(0, 0, 5);
+      // Camera setup
+      const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+      camera.position.set(0, 0, 5);
 
-    // Renderer setup
-    const renderer = new THREE.WebGLRenderer({ 
-        canvas: canvas, 
-        antialias: true,
-        alpha: true 
-    });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
+      // Renderer setup
+      const renderer = new THREE.WebGLRenderer({ 
+          canvas: canvas, 
+          antialias: true,
+          alpha: true 
+      });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
 
-    // Controls setup
-    const controls = new OrbitControls(camera, canvas);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
+      // Controls setup
+      const controls = new OrbitControls(camera, canvas);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
 
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
-    scene.add(ambientLight);
-    const pointLight = new THREE.PointLight(0xffffff, 0.8);
-    pointLight.position.set(5, 5, 5);
-    scene.add(pointLight);
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+      scene.add(ambientLight);
+      const pointLight = new THREE.PointLight(0xffffff, 0.8);
+      pointLight.position.set(5, 5, 5);
+      scene.add(pointLight);
 
-    // PLY loader
-    console.log('Starting PLY load...');
-    const loader = new PLYLoader();
-    loader.load(
-        'static/ply/before.ply',  // Updated path assuming PLY is in static/ply folder
-        function (geometry) {
-            console.log('PLY loaded successfully');
-            console.log('Geometry vertices:', geometry.attributes.position.count);
-            
-            geometry.computeVertexNormals();
-            
-            const material = new THREE.PointsMaterial({
-                size: 0.0005,  // Increased point size
-                vertexColors: geometry.attributes.color !== undefined
-            });
-            
-            if (geometry.attributes.color === undefined) {
-                material.color = new THREE.Color(0x0088ff);
-            }
-            
-            const points = new THREE.Points(geometry, material);
-            
-            // Additional rotations
-            points.rotation.x = -Math.PI * 150/180; // -180 degrees around X
-            points.rotation.y = Math.PI * 60/180; // -50 degrees around Z
-            points.rotation.z = Math.PI * -5/180; // -90 degrees around Y
-            scene.add(points);
-            
-            // Center and scale the model
-            geometry.computeBoundingSphere();
-            const center = geometry.boundingSphere.center;
-            points.position.sub(center);
-            
-            const radius = geometry.boundingSphere.radius;
-            camera.position.z = radius * 0.25;  // Reduced camera distance
-            camera.position.x = camera.position.x - 0.04;  // Reduced camera distance
-            camera.position.y = camera.position.y + 0.01;  // Reduced camera distance
-            controls.target.set(0, 0, 0);
-            controls.update();
-            
-            loadingText.style.display = 'none';
-        },
-        function (xhr) {
-            const progress = (xhr.loaded / xhr.total * 100).toFixed(1);
-            loadingText.innerHTML = `Loading: ${progress}%`;
-            console.log(`Loading progress: ${progress}%`);
-        },
-        function (error) {
-            console.error('Error loading PLY:', error);
-            loadingText.innerHTML = 'Error loading point cloud';
-        }
-    );
+      // PLY loader
+      console.log('Starting PLY load for ' + plyPath);
+      const loader = new PLYLoader();
+      loader.load(
+          plyPath,
+          function (geometry) {
+              console.log('PLY loaded successfully:', plyPath);
+              console.log('Geometry vertices:', geometry.attributes.position.count);
+              
+              geometry.computeVertexNormals();
+              
+              const material = new THREE.PointsMaterial({
+                  size: 0.0005,
+                  vertexColors: geometry.attributes.color !== undefined
+              });
+              
+              if (geometry.attributes.color === undefined) {
+                  material.color = new THREE.Color(0x0088ff);
+              }
+              
+              const points = new THREE.Points(geometry, material);
+              
+              // Additional rotations
+              points.rotation.x = -Math.PI * 150/180;
+              points.rotation.y = Math.PI * 60/180;
+              points.rotation.z = Math.PI * -5/180;
+              scene.add(points);
+              
+              // Center and scale the model
+              geometry.computeBoundingSphere();
+              const center = geometry.boundingSphere.center;
+              points.position.sub(center);
+              
+              const radius = geometry.boundingSphere.radius;
+              camera.position.z = radius * 0.25;
+              camera.position.x = camera.position.x - 0.035;
+              camera.position.y = camera.position.y + 0.005;
+              controls.target.set(0, 0, 0);
+              controls.update();
+              
+              loadingText.style.display = 'none';
+          },
+          function (xhr) {
+              const progress = (xhr.loaded / xhr.total * 100).toFixed(1);
+              loadingText.innerHTML = `Loading: ${progress}%`;
+              console.log(`Loading progress for ${plyPath}: ${progress}%`);
+          },
+          function (error) {
+              console.error('Error loading PLY:', error);
+              loadingText.innerHTML = 'Error loading point cloud';
+          }
+      );
 
-    // Handle window resize
-    function onWindowResize() {
-        camera.aspect = container.clientWidth / container.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
+      // Handle window resize
+      function onWindowResize() {
+          camera.aspect = container.clientWidth / container.clientHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(container.clientWidth, container.clientHeight);
+      }
+      window.addEventListener('resize', onWindowResize, false);
+
+      // Animation loop
+      function animate() {
+          requestAnimationFrame(animate);
+          controls.update();
+          renderer.render(scene, camera);
+      }
+      animate();
     }
-    window.addEventListener('resize', onWindowResize, false);
 
-    // Animation loop
-    function animate() {
-        requestAnimationFrame(animate);
-        controls.update();
-        renderer.render(scene, camera);
-    }
-    animate();
+    // Create both viewers
+    createViewer('point-cloud-container-before', 'loading-text-before', 'point-cloud-canvas-before', 'static/ply/before.ply');
+    createViewer('point-cloud-container-after', 'loading-text-after', 'point-cloud-canvas-after', 'static/ply/after.ply');
   </script>
 </section>
 
