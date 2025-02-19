@@ -322,8 +322,9 @@
             
             const points = new THREE.Points(geometry, material);
             
-            // Rotate 90 degrees around X axis
-            points.rotation.x = -Math.PI;  // Negative for clockwise rotation
+            // Additional rotations
+            points.rotation.x = -Math.PI; // -180 degrees around X
+            points.rotation.z = -Math.PI * 50/180; // -50 degrees around Z
             scene.add(points);
             
             // Center and scale the model
