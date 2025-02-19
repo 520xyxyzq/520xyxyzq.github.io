@@ -237,7 +237,7 @@
     <div class="column is-half">
       <h2 class="title is-3">Interactive 3D Results</h2>
       <div class="content">
-        <div id="point-cloud-container" style="height: 400px; width: 100%; position: relative; border: 1px solid #eee;">
+        <div id="point-cloud-container" style="height: 400px; width: 80%; position: relative; border: 1px solid #eee;">
           <div id="loading-text" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100;">
             Loading point cloud...
           </div>
@@ -323,9 +323,9 @@
             const points = new THREE.Points(geometry, material);
             
             // Additional rotations
-            points.rotation.x = -Math.PI; // -180 degrees around X
+            points.rotation.x = -Math.PI * 170/180; // -180 degrees around X
             points.rotation.y = Math.PI * 30/180; // -50 degrees around Z
-            points.rotation.z = Math.PI * 40/180; // -90 degrees around Y
+            points.rotation.z = Math.PI * 20/180; // -90 degrees around Y
             scene.add(points);
             
             // Center and scale the model
