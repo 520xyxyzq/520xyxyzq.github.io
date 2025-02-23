@@ -84,12 +84,36 @@
 </nav>
 -->
 
+<style>
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .gradient-text {
+    background: linear-gradient(90deg, #FF5733, #FFC300, #FF2E63, #FF5733);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientAnimation 8s ease infinite;
+    font-weight: bold;
+  }
+</style>
+
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title"> <span style="color: #FF5733;">LoRA3D</span>: Low-Rank Self-Calibration of 3D Geometric Foundation Models</h1>
+          <h1 class="title is-1 publication-title"> <span class="gradient-text">LoRA3D</span>: Low-Rank Self-Calibration of 3D Geometric Foundation Models</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://520xyxyzq.github.io">Ziqi Lu</a><sup>1,2</sup>,</span>
