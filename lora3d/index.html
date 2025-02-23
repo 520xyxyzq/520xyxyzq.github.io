@@ -420,7 +420,7 @@
 
 <div class="columns is-centered has-text-centered">
   <div class="column is-four-fifths">
-    <h2 class="title is-3">Results</h2>
+    <h2 class="title is-3">10-view 3DGS reconstruction</h2>
     <div class="columns is-centered">
       <div class="column is-half">
         <h3 class="title is-4">Before self-calibration</h3>
@@ -445,10 +445,22 @@
 </div>
 
 <script>
-  // Set slower playback speed for both videos
-  document.getElementById('before-video').playbackRate = 0.3;
-  document.getElementById('after-video').playbackRate = 0.3;
-</script>
+  // Function to handle video looping for first 5 seconds
+  function setupVideoLoop(videoId) {
+    const video = document.getElementById(videoId);
+    video.playbackRate = 0.4; // Keep the slower speed
+    
+    video.addEventListener('timeupdate', function() {
+      if (this.currentTime >= 5) {
+        this.currentTime = 0; // Reset to start when reaching 5 seconds
+      }
+    });
+  }
+  
+  // Set up both videos
+  setupVideoLoop('before-video');
+  setupVideoLoop('after-video');
+  </script>
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
