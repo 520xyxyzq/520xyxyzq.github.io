@@ -230,41 +230,13 @@
         </figure>
       </div>
     </div>
-    <!-- Abstract Section -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Emerging 3D geometric foundation models, such as DUSt3R, offer a promising approach for in-the-wild 3D vision tasks.
-            However, due to the high-dimensional nature of the problem space and scarcity of high-quality 3D data,
-            these pre-trained models still struggle to generalize to many challenging circumstances, such as limited view overlap or low lighting.
-            To address this, we propose LoRA3D,
-            an efficient self-calibration pipeline to specialize the pre-trained models to target scenes using their own multi-view predictions.
-            Taking sparse RGB images as input, we leverage robust optimization techniques to refine multi-view predictions and align them into a global coordinate frame.
-            In particular, we incorporate prediction confidence into the geometric optimization process,
-            automatically re-weighting the confidence to better reflect point estimation accuracy.
-            We use the calibrated confidence to generate high-quality pseudo labels for the calibrating views and use low-rank adaptation (LoRA) to fine-tune the models on the pseudo-labeled data.
-            Our method does not require any external priors or manual labels.
-            It completes the self-calibration process <strong>on a single standard GPU within just 5 minutes</strong>.
-            Each low-rank adapter <strong>requires only 18MB of storage</strong>. We evaluated our method on more than 160 scenes from the Replica, TUM and Waymo Open datasets,
-            achieving up to 88% performance improvement on 3D reconstruction, multi-view pose estimation and novel-view rendering.
-          </p>
-        </div>
-      </div>
-    </div>
-    
-
-
-    <!-- Additional sections can be added here following the same structure -->
-
   </div>
 </section>
 
 <section class="section" id="ply-viewer-section">
   <div class="columns is-centered has-text-centered">
     <div class="column is-one-third">
-      <h2 class="title is-3">Before</h2>
+      <!-- <h2 class="title is-3">Before</h2> -->
       <div class="content">
         <div id="point-cloud-container-before" style="height: 400px; width: 100%; position: relative; border: 1px solid #eee;">
           <div id="loading-text-before" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100;">
@@ -275,7 +247,7 @@
       </div>
     </div>
     <div class="column is-one-third">
-      <h2 class="title is-3">After</h2>
+      <!-- <h2 class="title is-3">After</h2> -->
       <div class="content">
         <div id="point-cloud-container-after" style="height: 400px; width: 100%; position: relative; border: 1px solid #eee;">
           <div id="loading-text-after" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100;">
@@ -419,10 +391,10 @@
     createViewer('point-cloud-container-after', 'loading-text-after', 'point-cloud-canvas-after', 'static/ply/after.ply');
   </script>
 </section>
-
+    
 <div class="columns is-centered has-text-centered">
   <div class="column is-two-thirds">
-    <h2 class="title is-3">10-view 3DGS reconstruction</h2>
+    <h2 class="title is-3">Task: 10-view 3DGS reconstruction</h2>
     <div class="columns is-centered">
       <div class="column is-half">
         <h3 class="title is-4">Before self-calibration</h3>
@@ -463,6 +435,35 @@
   setupVideoLoop('before-video');
   setupVideoLoop('after-video');
   </script>
+    <!-- Abstract Section -->
+<section class="section">
+  <div class="container is-max-desktop content">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Emerging 3D geometric foundation models, such as DUSt3R, offer a promising approach for in-the-wild 3D vision tasks.
+            However, due to the high-dimensional nature of the problem space and scarcity of high-quality 3D data,
+            these pre-trained models still struggle to generalize to many challenging circumstances, such as limited view overlap or low lighting.
+            To address this, we propose LoRA3D,
+            an efficient self-calibration pipeline to specialize the pre-trained models to target scenes using their own multi-view predictions.
+            Taking sparse RGB images as input, we leverage robust optimization techniques to refine multi-view predictions and align them into a global coordinate frame.
+            In particular, we incorporate prediction confidence into the geometric optimization process,
+            automatically re-weighting the confidence to better reflect point estimation accuracy.
+            We use the calibrated confidence to generate high-quality pseudo labels for the calibrating views and use low-rank adaptation (LoRA) to fine-tune the models on the pseudo-labeled data.
+            Our method does not require any external priors or manual labels.
+            It completes the self-calibration process <strong>on a single standard GPU within just 5 minutes</strong>.
+            Each low-rank adapter <strong>requires only 18MB of storage</strong>. We evaluated our method on more than 160 scenes from the Replica, TUM and Waymo Open datasets,
+            achieving up to 88% performance improvement on 3D reconstruction, multi-view pose estimation and novel-view rendering.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Additional sections can be added here following the same structure -->
+  </div>
+</section>
+
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
