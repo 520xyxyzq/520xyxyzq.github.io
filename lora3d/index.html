@@ -225,8 +225,8 @@
     <!-- Figure Section -->
     <div class="columns is-centered">
       <div class="column has-text-centered">
-        <p class="title is-3">Target scene: Replica office0</p>
-        <p class="title is-3">Task: 3D reconstruction</p>
+        <p class="has-text-justified is-size-4">Target scene: Replica office0</p>
+        <p class="has-text-centered is-size-5">Task: 3D reconstruction</p>
       </div>
     </div>
     <div class="columns is-centered has-text-centered">
@@ -238,7 +238,6 @@
     </div>
   </div>
   <div class="columns is-centered has-text-centered">
-
     <div class="column is-two-fifths">
       <!-- <h2 class="title is-3">Before</h2> -->
       <div class="content">
@@ -398,11 +397,25 @@
     
 <div class="columns is-centered has-text-centered">
   <div class="column is-two-thirds">
-    <p class="is-size-4 has-text-centered">Target scene: Waymo open dataset segment-10084</p>
-    <p class="is-size-5 has-text-centered">Task: 10-view 3DGS reconstruction</p>
+    <div class="container is-max-desktop">
+      <!-- Figure Section -->
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <p class="has-text-justified is-size-4">Target scene: Waymo open dataset segment-10084</p>
+          <p class="has-text-centered is-size-5">Task: Novel view synthesis</p>
+        </div>
+      </div>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <figure>
+            <img id="teaser" width="100%" src="static/images/Fig1.png" alt="Teaser image showing the results of the Lora3d method.">
+          </figure>
+        </div>
+      </div>
+    </div>
     <div class="columns is-centered">
       <div class="column is-half">
-        <h3 class="title is-4">Before self-calibration</h3>
+        <!-- <h3 class="title is-4">Before self-calibration</h3> -->
         <div class="content">
           <video id="before-video" controls autoplay muted loop playsinline width="100%">
             <source src="static/videos/before.mp4" type="video/mp4">
@@ -411,7 +424,7 @@
         </div>
       </div>
       <div class="column is-half">
-        <h3 class="title is-4">After self-calibration</h3>
+        <!-- <h3 class="title is-4">After self-calibration</h3> -->
         <div class="content">
           <video id="after-video" controls autoplay muted loop playsinline width="100%">
             <source src="static/videos/after.mp4" type="video/mp4">
