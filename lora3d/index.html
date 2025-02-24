@@ -394,42 +394,44 @@
     createViewer('point-cloud-container-after', 'loading-text-after', 'point-cloud-canvas-after', 'static/ply/after.ply');
   </script>
 </section>
-    
-<div class="columns is-centered has-text-centered">
-  <div class="column is-two-thirds">
-    <div class="container is-max-desktop">
-      <!-- Figure Section -->
+
+<section>
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-two-thirds">
+      <div class="container is-max-desktop">
+        <!-- Figure Section -->
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <p class="has-text-centered is-size-4"><strong>Target scene: Waymo open dataset segment-10084</strong></p>
+            <p class="has-text-centered is-size-5"><strong>Task: Novel view synthesis</strong></p>
+          </div>
+        </div>
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <figure>
+              <img id="teaser" width="100%" src="static/images/waymo.png" alt="Teaser image showing the results of the Lora3d method.">
+            </figure>
+          </div>
+        </div>
+      </div>
       <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <p class="has-text-centered is-size-4"><strong>Target scene: Waymo open dataset segment-10084</strong></p>
-          <p class="has-text-centered is-size-5"><strong>Task: Novel view synthesis</strong></p>
+        <div class="column is-half">
+          <!-- <h3 class="title is-4">Before self-calibration</h3> -->
+          <div class="content">
+            <video id="before-video" controls autoplay muted loop playsinline width="100%">
+              <source src="static/videos/before.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
-      </div>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <figure>
-            <img id="teaser" width="100%" src="static/images/waymo.png" alt="Teaser image showing the results of the Lora3d method.">
-          </figure>
-        </div>
-      </div>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-half">
-        <!-- <h3 class="title is-4">Before self-calibration</h3> -->
-        <div class="content">
-          <video id="before-video" controls autoplay muted loop playsinline width="100%">
-            <source src="static/videos/before.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-      </div>
-      <div class="column is-half">
-        <!-- <h3 class="title is-4">After self-calibration</h3> -->
-        <div class="content">
-          <video id="after-video" controls autoplay muted loop playsinline width="100%">
-            <source src="static/videos/after.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+        <div class="column is-half">
+          <!-- <h3 class="title is-4">After self-calibration</h3> -->
+          <div class="content">
+            <video id="after-video" controls autoplay muted loop playsinline width="100%">
+              <source src="static/videos/after.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
       </div>
       <div class="columns is-centered">
@@ -442,25 +444,25 @@
       </div>
     </div>
   </div>
-</div>
 
-<script>
-  // Function to handle video looping for first 5 seconds
-  function setupVideoLoop(videoId) {
-    const video = document.getElementById(videoId);
-    video.playbackRate = 0.4; // Keep the slower speed
+  <script>
+    // Function to handle video looping for first 5 seconds
+    function setupVideoLoop(videoId) {
+      const video = document.getElementById(videoId);
+      video.playbackRate = 0.4; // Keep the slower speed
+      
+      video.addEventListener('timeupdate', function() {
+        if (this.currentTime >= 5) {
+          this.currentTime = 0; // Reset to start when reaching 5 seconds
+        }
+      });
+    }
     
-    video.addEventListener('timeupdate', function() {
-      if (this.currentTime >= 5) {
-        this.currentTime = 0; // Reset to start when reaching 5 seconds
-      }
-    });
-  }
-  
-  // Set up both videos
-  setupVideoLoop('before-video');
-  setupVideoLoop('after-video');
-</script>
+    // Set up both videos
+    setupVideoLoop('before-video');
+    setupVideoLoop('after-video');
+  </script>
+</section>
 
 <!-- Abstract Section -->
 <section class="section">
