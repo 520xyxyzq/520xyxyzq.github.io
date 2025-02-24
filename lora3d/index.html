@@ -364,7 +364,7 @@
               </div>
             </div>
             <div class="columns is-centered">
-              <div class="column is-two-thirds">
+              <div class="column is-four-fifths">
                 <p class="has-text-centered">
                   The video showcases novel view rendering of a 3DGS model trained with InstantSplat using only 10 input images.
                   The artifacts that remain after self-calibration are primarily caused by incomplete observation due to the sparse view observation.
@@ -399,10 +399,109 @@
   import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   import { PLYLoader } from 'three/addons/loaders/PLYLoader.js';
 
-  // Your existing Three.js code
   function createViewer(containerId, loadingTextId, canvasId, plyPath) {
-    // ... [Your existing createViewer function code] ...
-  }
+      const container = document.getElementById(containerId);
+      const loadingText = document.getElementById(loadingTextId);
+      const canvas = document.getElementById(canvasId);
+
+      // Scene setup
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xf5f5f5);
+
+      // Camera setup
+      const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+      camera.position.set(0, 0, 5);
+
+      // Renderer setup
+      const renderer = new THREE.WebGLRenderer({ 
+          canvas: canvas, 
+          antialias: true,
+          alpha: true 
+      });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
+
+      // Controls setup
+      const controls = new OrbitControls(camera, canvas);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+      scene.add(ambientLight);
+      const pointLight = new THREE.PointLight(0xffffff, 0.8);
+      pointLight.position.set(5, 5, 5);
+      scene.add(pointLight);
+
+      // PLY loader
+      console.log('Starting PLY load for ' + plyPath);
+      const loader = new PLYLoader();
+      loader.load(
+          plyPath,
+          function (geometry) {
+              console.log('PLY loaded successfully:', plyPath);
+              console.log('Geometry vertices:', geometry.attributes.position.count);
+              
+              geometry.computeVertexNormals();
+              
+              const material = new THREE.PointsMaterial({
+                  size: 0.0005,
+                  vertexColors: geometry.attributes.color !== undefined
+              });
+              
+              if (geometry.attributes.color === undefined) {
+                  material.color = new THREE.Color(0x0088ff);
+              }
+              
+              const points = new THREE.Points(geometry, material);
+              
+              // Additional rotations
+              points.rotation.x = -Math.PI * 150/180;
+              points.rotation.y = Math.PI * 60/180;
+              points.rotation.z = Math.PI * -5/180;
+              scene.add(points);
+              
+              // Center and scale the model
+              geometry.computeBoundingSphere();
+              const center = geometry.boundingSphere.center;
+              points.position.sub(center);
+              
+              const radius = geometry.boundingSphere.radius;
+              camera.position.z = radius * 0.25;
+              camera.position.x = camera.position.x - 0.035;
+              camera.position.y = camera.position.y + 0.005;
+              controls.target.set(0, 0, 0);
+              controls.update();
+              
+              loadingText.style.display = 'none';
+          },
+          function (xhr) {
+              const progress = (xhr.loaded / xhr.total * 100).toFixed(1);
+              loadingText.innerHTML = `Loading: ${progress}%`;
+              console.log(`Loading progress for ${plyPath}: ${progress}%`);
+          },
+          function (error) {
+              console.error('Error loading PLY:', error);
+              loadingText.innerHTML = 'Error loading point cloud';
+          }
+      );
+
+      // Handle window resize
+      function onWindowResize() {
+          camera.aspect = container.clientWidth / container.clientHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(container.clientWidth, container.clientHeight);
+      }
+      window.addEventListener('resize', onWindowResize, false);
+
+      // Animation loop
+      function animate() {
+          requestAnimationFrame(animate);
+          controls.update();
+          renderer.render(scene, camera);
+      }
+      animate();
+    }
 
   // Create both viewers
   createViewer('point-cloud-container-before', 'loading-text-before', 'point-cloud-canvas-before', 'static/ply/before.ply');
