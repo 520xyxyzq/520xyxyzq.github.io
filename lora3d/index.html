@@ -365,7 +365,7 @@
             </div>
             <div class="columns is-centered">
               <div class="column">
-                <p class="has-text-centered">
+                <p class="has-text-justified">
                   The videos show novel view renders of a 3DGS model trained with <strong>only 10 input images</strong> using <a href="https://instantsplat.github.io/">InstantSplat</a> (DUSt3R-initialized 3DGS training).
                   The artifacts that remain after self-calibration are primarily caused by incomplete sparse view observation.
                 </p>
@@ -401,13 +401,13 @@
                     <div class="column">
                       <figure>
                         <img width="100%" src="static/images/tum_before.png" alt="TUM dataset reconstruction before LoRA3D calibration">
-                        <figcaption class="has-text-centered">Before LoRA3D calibration</figcaption>
                       </figure>
                     </div>
+                    <!-- Added an empty column to create more space between images -->
+                    <div class="column is-1"></div>
                     <div class="column">
                       <figure>
                         <img width="100%" src="static/images/tum_after.png" alt="TUM dataset reconstruction after LoRA3D calibration">
-                        <figcaption class="has-text-centered">After LoRA3D calibration</figcaption>
                       </figure>
                     </div>
                   </div>
@@ -417,7 +417,7 @@
                 <div class="column">
                   <p class="has-text-justified">
                     The figures above show estimated (red frustums) and ground truth (green frustums) camera poses for 10 sample images.
-                    The camera pose estimates are made more accurate by self-calibration
+                    The camera pose estimates are made more accurate by self-calibration.
                   </p>
                 </div>
               </div>
