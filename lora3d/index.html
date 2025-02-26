@@ -276,53 +276,51 @@
   <div class="slide-content">
     <!-- Replica section -->
     <div class="slide-section">
-      <section class="section">
-        <div class="container is-max-desktop">
-          <!-- Figure Section -->
-          <div class="columns is-centered">
-            <div class="column has-text-centered">
-              <p class="has-text-centered is-size-4" style="color: black; font-family: Arial, sans-serif;">Target scene: Replica office0</p>
-              <p class="has-text-centered is-size-4" style="color: black; font-family: Arial, sans-serif;"><em>Task: 3D reconstruction</em></p>
-            </div>
-          </div>
-          <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
-              <figure>
-                <img id="teaser" width="100%" src="static/images/replica.png" alt="Teaser image showing the results of the Lora3d method.">
-              </figure>
-            </div>
+      <div class="container is-max-desktop">
+        <!-- Figure Section -->
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <p class="has-text-centered is-size-4" style="color: black; font-family: Arial, sans-serif;">Target scene: Replica office0</p>
+            <p class="has-text-centered is-size-4" style="color: black; font-family: Arial, sans-serif;"><em>Task: 3D reconstruction</em></p>
           </div>
         </div>
         <div class="columns is-centered has-text-centered">
-          <div class="column is-one-third">
-            <div class="content">
-              <div id="point-cloud-container-before" style="height: 400px; width: 100%; position: relative; border: 1px solid #eee;">
-                <div id="loading-text-before" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100;">
-                  Loading point cloud...
-                </div>
-                <canvas id="point-cloud-canvas-before"></canvas>
-              </div>
-            </div>
+          <div class="column is-four-fifths">
+            <figure>
+              <img id="teaser" width="100%" src="static/images/replica.png" alt="Teaser image showing the results of the Lora3d method.">
+            </figure>
           </div>
-          <div class="column is-one-third">
-            <div class="content">
-              <div id="point-cloud-container-after" style="height: 400px; width: 100%; position: relative; border: 1px solid #eee;">
-                <div id="loading-text-after" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100;">
-                  Loading point cloud...
-                </div>
-                <canvas id="point-cloud-canvas-after"></canvas>
+        </div>
+      </div>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-one-third">
+          <div class="content">
+            <div id="point-cloud-container-before" style="height: 400px; width: 100%; position: relative; border: 1px solid #eee;">
+              <div id="loading-text-before" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100;">
+                Loading point cloud...
               </div>
+              <canvas id="point-cloud-canvas-before"></canvas>
             </div>
           </div>
         </div>
-        <div class="columns is-centered">
-          <div class="column is-two-thirds">
-            <p class="has-text-centered">
-              Interactive visualization of our reconstructed point clouds. Use mouse to rotate, scroll to zoom.
-            </p>
+        <div class="column is-one-third">
+          <div class="content">
+            <div id="point-cloud-container-after" style="height: 400px; width: 100%; position: relative; border: 1px solid #eee;">
+              <div id="loading-text-after" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 100;">
+                Loading point cloud...
+              </div>
+              <canvas id="point-cloud-canvas-after"></canvas>
+            </div>
           </div>
         </div>
-      </section>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-two-thirds">
+          <p class="has-text-centered">
+            Interactive visualization of our reconstructed point clouds. Use mouse to rotate, scroll to zoom.
+          </p>
+        </div>
+      </div>
     </div>
 
     <!-- Waymo section -->
@@ -404,7 +402,7 @@
                       </figure>
                     </div>
                     <!-- Added an empty column to create more space between images -->
-                    <div class="column is-2"></div>
+                    <div class="column is-4"></div>
                     <div class="column">
                       <figure>
                         <img width="100%" src="static/images/tum_after.png" alt="TUM dataset reconstruction after LoRA3D calibration">
@@ -427,7 +425,6 @@
       </section>
     </div>
   </div>
-
 
   <div class="slide-nav">
     <div class="slide-nav-dot active"></div>
