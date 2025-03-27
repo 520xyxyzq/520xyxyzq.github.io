@@ -597,12 +597,12 @@
       }, 500);
     }
     
-    // Auto-advance slides every 10 seconds
+    // Auto-advance slides every 15 seconds
     setInterval(() => {
       if (!isTransitioning) {
         goToSection((currentSection + 1) % totalSections);
       }
-    }, 10000);
+    }, 15000);
     
     // Add click handlers to dots
     dots.forEach((dot, index) => {
