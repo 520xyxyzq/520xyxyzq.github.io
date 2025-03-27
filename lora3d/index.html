@@ -262,7 +262,7 @@
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
             <p class="has-text-justified is-size-5">
-              <strong>TL;DR</strong>: LoRA3D helps 3D geometric foundation models (e.g. DUSt3R) to <strong>self-specialize</strong> to your target scene using <strong>just around 10 uncalibrated images</strong> in under <strong>5 min</strong> on <strong>a single GPU</strong>.
+              <strong>TL;DR</strong>: LoRA3D helps 3D geometric foundation models (e.g. DUSt3R, MASt3R) to <strong>self-specialize</strong> to your target scene using <strong>just around 10 uncalibrated images</strong> in under <strong>5 min</strong> on <strong>a single GPU</strong>.
             </p>
           </div>
         </div>
@@ -415,6 +415,47 @@
                     The figures above show <span style="color: red;">estimated</span> and <span style="color: green;">ground truth</span> camera poses for 10 sample images in TUM fr2_xyz.
                     The camera pose estimates are made more accurate by self-calibration.
                   </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- MASt3R section -->
+    <div class="slide-section">
+      <section>
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-two-thirds">
+            <div class="container is-max-desktop">
+              <div class="columns is-centered">
+                <div class="column has-text-centered">
+                  <p class="has-text-centered is-size-4" style="color: black; font-family: Arial, sans-serif;">Target scene: TUM fr2_xyz</p>
+                  <p class="has-text-centered is-size-4" style="color: black; font-family: Arial, sans-serif;"><em>Task: Camera pose estimation</em></p>
+                </div>
+              </div>
+              <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                  <figure>
+                    <img id="teaser" width="100%" src="static/images/mast3r.png" alt="MASt3R calib images.">
+                  </figure>
+                </div>
+              </div>
+              <div class="columns is-centered has-text-centered">
+                <div class="column">
+                  <div class="columns">
+                    <div class="column">
+                      <figure style="padding-right: 10%;">
+                        <img width="100%" src="static/images/mast3r_before.png" alt="Waymo dataset reconstruction before LoRA3D calibration">
+                      </figure>
+                    </div>
+                    <div class="column">
+                      <figure style="padding-left: 10%;">
+                        <img width="100%" src="static/images/mast3r_after.png" alt="Waymo dataset reconstruction after LoRA3D calibration">
+                      </figure>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
